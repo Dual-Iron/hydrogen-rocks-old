@@ -1,3 +1,5 @@
-Makes rocks explode when you throw them. This mod is intentionally very simple to be a starting point for new mod developers.
+Makes rocks explode when you throw them.
+
+This repository is a good starting point for new mod developers. Feel free to take code from it.
 
 ![](boom.jpg)
