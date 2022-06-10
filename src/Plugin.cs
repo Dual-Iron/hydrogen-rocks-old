@@ -30,14 +30,17 @@ class Plugin : BaseUnityPlugin
 
     void Explode(Rock rock)
     {
-        // `pos` is short for `position`.
+        // `pos` is short for position.
+        // The explosion pos should be 35% of the way from the rock's pos this frame to its pos last frame.
         Vector2 pos = Vector2.Lerp(rock.firstChunk.pos, rock.firstChunk.lastPos, 0.35f);
 
+        // `rad` is short for radius and `alpha` describes how opaque a light should be.
         // Create visual effects for the rock's explosion.
+        Color softRed = new Color(r: 1.0f, g: 0.4f, b: 0.3f);
         rock.room.AddObject(new SootMark(rock.room, pos, rad: 80f, bigSprite: true));
-        rock.room.AddObject(new Explosion.ExplosionLight(pos, rad: 280.0f, alpha: 1.0f, lifeTime: 7, lightColor: new Color(1.0f, 0.4f, 0.3f)));
-        rock.room.AddObject(new Explosion.ExplosionLight(pos, rad: 230.0f, alpha: 1.0f, lifeTime: 3, lightColor: new Color(1.0f, 1.0f, 1.0f)));
-        rock.room.AddObject(new ExplosionSpikes(rock.room, pos, _spikes: 14, innerRad: 30.0f, lifeTime: 9.0f, width: 7.0f, length: 170.0f, color: new Color(1.0f, 0.4f, 0.3f)));
+        rock.room.AddObject(new Explosion.ExplosionLight(pos, rad: 280.0f, alpha: 1.0f, lifeTime: 7, lightColor: softRed));
+        rock.room.AddObject(new Explosion.ExplosionLight(pos, rad: 230.0f, alpha: 1.0f, lifeTime: 3, lightColor: Color.white));
+        rock.room.AddObject(new ExplosionSpikes(rock.room, pos, _spikes: 14, innerRad: 30.0f, lifeTime: 9.0f, width: 7.0f, length: 170.0f, color: softRed));
         rock.room.AddObject(new ShockWave(pos, size: 330.0f, intensity: 0.045f, lifeTime: 5));
 
         // Create the actual explosion. This will damage creatures and throw nearby objects.
